@@ -2,9 +2,7 @@ const express = require('express');
 
 const PORT =  3000;
 
-const app = express();
-app.use(express.json({extended: true}));
-app.use(express.urlencoded({extended: true}));
+
 
 const books = [
     {
@@ -17,16 +15,22 @@ const books = [
     }
     
 ]
+const app = express();
+
+app.use(express.json({extended: true}));
+app.use(express.urlencoded({extended: true}));
+
 app.get("/api/books", (req, res) => {
     res.json(books)
 });
 app.post("/api/books", (req, res) => {
     const payload = req.body;
     console.log(payload);
-    payload.push({
+
+    books.push({
         ...payload, 
-        id: 111
-    })
+        id: '111',
+    });
 
     res.json({ success: true });
 })
